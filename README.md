@@ -1,4 +1,4 @@
-# 🇯🇵 Japanese Market Stress Dashboard
+# 🇯🇵 Japanese Yen Market Stress Dashboard
 
 A real-time monitoring system that tracks Japanese Government Bond (JGB) auction results, Bank of Japan (BOJ) policy signals, and yen carry trade dynamics. The dashboard aggregates data from multiple sources, calculates stress indicators, and generates alerts when conditions emerge for potential JPY/USD devaluation.
 
