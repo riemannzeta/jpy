@@ -15,7 +15,10 @@
     "recharts": "^2.10.0",
     "axios": "^1.6.0",
     "date-fns": "^2.30.0",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "cheerio": "^1.0.0-rc.12",
+    "xml2js": "^0.6.2",
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

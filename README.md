@@ -6,17 +6,19 @@ A real-time monitoring system that tracks Japanese Government Bond (JGB) auction
 
 ## 🌟 Features
 
-- **Real-time FX Monitoring**: Track USD/JPY exchange rates with historical trends
-- **JGB Yield Tracking**: Monitor 2Y, 5Y, 10Y, and 30Y Japanese Government Bond yields
-- **BOJ Policy Signals**: Track Bank of Japan policy rates and announcements
-- **Carry Trade Risk Analysis**: Calculate interest rate differentials and volatility metrics
+- **Live FX Monitoring**: Track USD/JPY exchange rates with real 24-hour changes and historical trends
+- **Live JGB Yield Tracking**: Monitor 2Y, 5Y, 10Y, and 30Y Japanese Government Bond yields from live sources
+- **Live BOJ Policy Signals**: Track Bank of Japan policy rates and latest announcements via RSS feed
+- **Carry Trade Risk Analysis**: Calculate interest rate differentials and volatility metrics from real data
 - **Comprehensive Stress Indicators**:
   - Carry Trade Risk Score
   - Yield Curve Stress Level
   - Currency Pressure Index
   - BOJ Intervention Risk Assessment
 - **Smart Alerts**: Automatic notifications when critical thresholds are reached
-- **Auto-refresh**: Data updates every 5 minutes automatically
+- **Auto-refresh**: Data updates every 5 minutes automatically with intelligent caching
+- **Live Data Integration**: Optional real-time data from Alpha Vantage, FRED API, and BOJ RSS
+- **Graceful Fallbacks**: Works perfectly even without API keys using realistic mock data
 - **Mobile Responsive**: Works seamlessly on desktop, tablet, and mobile devices
 
 ## 🎯 What It Monitors
@@ -46,6 +48,7 @@ A real-time monitoring system that tracks Japanese Government Bond (JGB) auction
 ### Prerequisites
 - Node.js 18+ and npm
 - Git
+- (Optional) Free API keys for live data - see [LIVE_DATA_SETUP.md](LIVE_DATA_SETUP.md)
 
 ### Local Development
 
@@ -60,13 +63,21 @@ A real-time monitoring system that tracks Japanese Government Bond (JGB) auction
    npm install
    ```
 
-3. **Run the development server**
+3. **[Optional] Set up live data integration**
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local with your API keys (see LIVE_DATA_SETUP.md)
+   ```
+
+4. **Run the development server**
    ```bash
    npm run dev
    ```
 
-4. **Open your browser**
+5. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
+
+> **Note**: The dashboard works without API keys using fallback data. For live data integration, see [LIVE_DATA_SETUP.md](LIVE_DATA_SETUP.md).
 
 ## 🌐 Deploy to Vercel (Free)
 
@@ -199,37 +210,57 @@ jpy/
 
 ## 🔌 Data Sources
 
+### ✨ LIVE DATA INTEGRATION NOW AVAILABLE!
+
+The dashboard now supports **real-time live data** from multiple sources. See **[LIVE_DATA_SETUP.md](LIVE_DATA_SETUP.md)** for complete setup instructions.
+
 ### Current Implementation
 
-1. **FX Rates**: [Open Exchange Rates API](https://open.er-api.com/)
-   - Free tier: 1,500 requests/month
-   - No API key required
-   - Real-time USD/JPY rates
+1. **FX Rates**: Live data with intelligent fallback
+   - **Primary**: [Open Exchange Rates API](https://open.er-api.com/) (free, no key required)
+   - **Enhanced**: Alpha Vantage for historical data and 24h changes (free API key required)
+   - Real-time USD/JPY rates with actual 24-hour change tracking
 
-2. **JGB Yields**: Mock data with realistic ranges
-   - Simulates real JGB market conditions
-   - Ready to integrate with live data sources
+2. **JGB Yields**: Live Japanese Government Bond yields
+   - **Primary**: FRED API for 10-year JGB yields (free API key recommended)
+   - **Fallback**: Realistic mock data based on current market conditions
+   - Other maturities estimated from yield curve relationships
 
-3. **BOJ Policy**: Static policy rate with recent announcements
-   - Updated during BOJ policy meetings
+3. **BOJ Policy**: Live announcements from Bank of Japan
+   - **Live**: BOJ RSS feed for latest announcements (automatic, no key required)
+   - **Policy Rate**: Updated during BOJ policy meetings
+   - Fallback announcements if RSS feed is unavailable
 
-### Upgrade to Live Data (Optional)
+4. **Historical Data**: 30-day FX trends
+   - **Live**: Alpha Vantage historical FX data (free API key required)
+   - **Fallback**: Realistic mock trend data
 
-To integrate real JGB and enhanced FX data:
+### 🚀 Quick Setup for Live Data
 
-1. **Alpha Vantage** (Free tier: 500 requests/day)
+1. **Get free API keys** (optional but recommended):
+   - [Alpha Vantage](https://www.alphavantage.co/support/#api-key) - For FX historical data (500 calls/day free)
+   - [FRED API](https://fredaccount.stlouisfed.org/apikeys) - For JGB yields (unlimited free)
+
+2. **Configure environment**:
    ```bash
-   # Get free API key: https://www.alphavantage.co/support/#api-key
-   # Add to .env.local:
-   ALPHA_VANTAGE_API_KEY=your_key_here
+   cp .env.example .env.local
+   # Edit .env.local and add your API keys
    ```
 
-2. **JGB Data Scraping**
-   - Ministry of Finance Japan: https://www.mof.go.jp/english/policy/jgbs/
-   - Investing.com JGB data (requires scraping)
+3. **Install and run**:
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-3. **BOJ RSS Feed**
-   - https://www.boj.or.jp/en/rss/index.htm
+**See [LIVE_DATA_SETUP.md](LIVE_DATA_SETUP.md) for detailed instructions, troubleshooting, and API management.**
+
+### Data Quality & Reliability
+
+- **Intelligent Caching**: 5-minute cache reduces API calls and ensures fast loading
+- **Graceful Fallback**: Dashboard works even if APIs are unavailable
+- **Rate Limit Management**: Optimized refresh intervals stay within free tier limits
+- **Error Handling**: Robust error handling ensures continuous operation
 
 ## 🎨 Customization
 
@@ -281,6 +312,10 @@ Alerts are triggered automatically based on:
 
 ## 📈 Future Enhancements
 
+- [x] Live FX data with 24h changes (Alpha Vantage)
+- [x] Live JGB yield tracking (FRED API)
+- [x] Live BOJ announcements (RSS feed)
+- [x] Intelligent caching system
 - [ ] Email/SMS alert notifications
 - [ ] Historical data storage (database)
 - [ ] Machine learning predictions
@@ -289,6 +324,8 @@ Alerts are triggered automatically based on:
 - [ ] News sentiment analysis
 - [ ] Export to CSV/PDF
 - [ ] Customizable alert thresholds via UI
+- [ ] WebSocket real-time updates
+- [ ] Ministry of Finance JGB auction scraper
 
 ## 🤝 Contributing
 
