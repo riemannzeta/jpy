@@ -51,8 +51,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Japanese Market Stress Dashboard</title>
-        <meta name="description" content="Real-time monitoring of Japanese market stress indicators" />
+        <title>Yen Market Stress Dashboard</title>
+        <meta name="description" content="Real-time monitoring of JPY market stress indicators" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
