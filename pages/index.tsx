@@ -62,7 +62,7 @@ export default function Home() {
           {/* Header */}
           <div className="bg-white border-2 border-gray-300 rounded-lg p-6 shadow-lg">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-              🇯🇵 Japanese Market Stress Dashboard
+              🇯🇵 Yen Market Stress Dashboard
             </h1>
             <p className="text-gray-600">
               Real-time monitoring of JGB auctions, BOJ policy, and yen carry trade dynamics
